@@ -1,0 +1,27 @@
+<%- include('../partials/header.ejs')%>
+        <section class="header">
+            <div style="padding:20px">
+                <form action="/products" method="POST">
+                    <ul>
+                     <li class="pad">
+                       <label for="sport">Sports</label>
+                       <input type="text" id="sport" name="sport" required>
+                     </li>
+                     <li class="pad">
+                       <label for="title">Title</label>
+                       <input type="text" id="title" name="title" required>
+                     </li>
+                     <li class="pad">
+                       <label for="desc">Description</label>
+                       <textarea  name="desc" id="desc" minlength="10" required></textarea>
+                     </li>
+                     <li class="pad">
+                     <label for="image">Image URL</label>
+                      <input type="url" id="imgPath" name="imgPath" placeholder="Enter image url" required>
+                    </li>
+                    </ul>
+                        <input type = "submit" name="trade" value="Trade">
+                    </form>
+                   </div> 
+        </section>
+<%- include('../partials/footer.ejs')%>  

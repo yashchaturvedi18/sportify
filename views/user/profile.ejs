@@ -1,0 +1,87 @@
+<%- include('../partials/header.ejs')%>
+<div class="header">
+    <div id="container">
+<h2 class="pad">Welcome, <%= user.firstName + " " + user.lastName%> </h2>
+<%if(products.length){%>
+    <p class="pad"> You have created the following products : </p>
+    <table>
+        <tr>
+          <th class="pad">Title</th>
+          <th class="pad">Sport</th>
+    
+          <th class="pad">Status</th>
+          <th class="pad">Options</th>
+        </tr>
+    <%products.forEach(prod => {%>
+            <tr>
+              <td class="pad"><a href="/products/<%= prod._id %>" class="link"><%=prod.title%></a></td>
+              <td class="pad"><%=prod.sport%></td>
+                <td class="pad"><%=prod.status%></td>
+                <td class="pad"> <form>
+                  <button type="submit"  formmethod="POST" formaction="/products/<%=prod._id%>?_method=DELETE">Delete</button>
+                  <button type="submit" formmethod="GET" formaction="/products/<%=prod._id%>/edit">Edit</button>
+                <%if(prod.status === "Offer Pending"){%>
+                  <button type="submit" formmethod = 'GET' formaction="/products/manage/offer/<%=prod._id%>/<%=prod.tradedWith%>">Manage Offer</button>
+                </form></td>
+                  <%}%>
+            </tr>
+            
+    <%});%>
+  </table>
+<%} else {%>
+    <p class="pad">You have not created any products. Go Trade ! Why Wait ? </p>
+<%}%>
+<hr>
+<%if(offers.length){%>
+    <p> You have created the following offers : </p>
+    <table>
+        <tr>
+          <th class="pad">Title</th>
+          <th class="pad">Sport</th>
+          <th class="pad">Status</th>
+          <th class="pad">Options</th>
+        </tr>
+    <%offers.forEach(offer => {%>
+            <tr>
+              <td class="pad"><a href="/products/<%= offer._id %>" class="link"><%=offer.title%></a></td>
+              <td class="pad"><%=offer.sport%></td>
+                <td class="pad"><%=offer.status%></td>
+                <td class="pad"><form><button type="submit" id="right-float" formmethod="POST" formaction="/products/cancel/offer/<%=offer.tradedWith%>/<%=offer._id%>">Cancel Offer</button></form></td>
+            </tr>
+            
+    <%});%>
+  </table>
+<%} else {%>
+    <p class="pad">You have not created any offers. Go Trade. Why Wait</p>
+<%}%>
+<hr>
+
+<%console.log("watchListlen => ", watchList.length);%>
+<%if(watchList.length){%>
+    <p> You have created the following Watch list : </p>
+    <table>
+        <tr>
+          <th>Title</th>
+          <th>Sport</th>
+          <th>Status</th>
+          <th>Options</th>
+        </tr>
+    <%watchList.forEach(prod => {%>
+            <tr>
+              <td class="pad"><a href="/products/<%= prod._id %>" class="link"><%=prod.title%></a></td>
+              <td class="pad"><%=prod.sport%></td>
+                <td class="pad"><%=prod.status%></td>
+                <td class="pad"><form><button name="operation" type="submit"  id="unwatch"  formmethod="POST" formaction="/products/watchlist/<%=prod._id%>/" value="Unwatch">Unwatch</button></form>
+                </td>
+            </tr>
+            
+    <%});%>
+  </table>
+<%} else {%>
+    <p class="pad">Your WatchList is empty . Keep an eye for your favourites.</p>
+<%}%>
+
+
+</div>
+</div>
+<%- include('../partials/footer.ejs')%>

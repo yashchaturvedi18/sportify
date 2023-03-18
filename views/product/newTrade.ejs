@@ -1,0 +1,48 @@
+<%- include('../partials/header.ejs')%>
+
+  <div class="header">
+    <div id="container">
+      <div id="respond">
+        <form>
+            <%if(products.length){%>
+              <h2>Hello <%= user.firstName + " " + user.lastName%>! Choose one of your products to trade. </h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th class="pad">Title</th>
+                    <th class="pad">Sports</th>
+                    <th class="pad">Status</th>
+                  </tr>
+                </thead>
+                <%products.filter(i=> i.status === 'available').forEach(product => {%>
+                  <tbody>
+                    <td class="pad">
+                      <div class="radio">
+                        <label><input type="radio" id=<%=product.id%> name="tradeItem" value=<%=product.id%>>
+                            <%=product.title%></label>
+                      </div>
+                    </td>
+                    <td class="pad">
+                      <div class="radiotext">
+                        <label for=<%=product.id%>><%=product.sport%></label>
+                      </div>
+                    </td>
+                    <td class="pad">
+                      <%=product.status%>
+                    </td>
+                    </tr>
+                  </tbody>
+                  <%});%>
+              </table>
+
+              <%} else {%>
+                <p class="pad">You have not created any Products. Go for it !</p>
+                <%}%>
+                  <button type="submit" formmethod="POST" formaction="/products/newTrade/<%=tradeWith%>/">Trade</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <%- include('../partials/footer.ejs')%>

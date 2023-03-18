@@ -1,0 +1,48 @@
+<%- include('../partials/header.ejs')%>
+<section class="header">
+<div class="pad">
+<h1><%=product.title%></h1>
+</div>
+<div class="pad">
+<img src="<%=product.imgPath%>" alt="shoeImg" height="180" width="180">
+</div>
+<div class="pad">
+<h3><%=product.desc%></h3>
+</div>
+<div class="pad">
+<h2>STATUS : <%=product.status%></h2>
+</div>
+<div class="pad">
+    <h4>Seller :  <%= product.seller.firstName +' '+ product.seller.lastName %></h4>
+    </div>
+<div class="pad">
+<form>
+    <% if(user == product.seller._id) { %>
+    <button type = "submit" formmethod="GET" formaction="/products/<%=product.id%>/edit">EDIT</button>
+    <button type = "submit" formmethod="POST" formaction="/products/<%=product.id%>?_method=DELETE">DELETE</button>
+    <% } %>
+</form>
+
+<%if(!(user && user==product.seller._id)) {%>
+    <br>
+    <div id="respond">
+      <h3>Interested in this product?!</h3>
+      <form>
+        <%if(product.status==="available" ) {%>
+          <input name="Trade" type="submit" id="trade-it" formmethod="GET" formaction="products/newTrade/<%=product._id%>"
+            value="Trade" />
+          <%}%>
+            <%if(product.watchList.indexOf(user)!== -1) {%>
+              <input name="operation" type="submit" id="unwatch" formmethod="POST"
+                formaction="products/watchlist/<%=product._id%>/" value="Unwatch" />
+              <%} else {%>
+                <input name="operation" type="submit" id="watch" formmethod="POST"
+                  formaction="products/watchlist/<%=product._id%>/" value="Watch" />
+                <%}%>
+      </form>
+    </div>
+    <%}%>
+</div>
+</section>
+
+<%- include('../partials/footer.ejs')%>  

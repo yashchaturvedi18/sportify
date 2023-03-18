@@ -1,0 +1,26 @@
+<%- include('../partials/header.ejs')%>
+<section class="header">
+
+
+    <% if(categories.length){ %>
+        <% categories.forEach(category => { %>
+        <div>
+            <h1><%= category.toUpperCase()  %></h1>
+            <ol>
+                <% if(products.length){ %>
+                    <% products.forEach(product => { %> 
+                        <% if (product.sport.toLowerCase() == category.toLowerCase()) { %>
+                            <li><a href="/products/<%= product._id %>" class="link"><%= product.title %></a></li>
+                        <% } });
+                    } else { %>
+                        <p>There are no products to display.</p>
+                <% } %>
+            </ol>
+        </div>
+        <% }); %>
+    <% } else { %>
+        <p>There are no products to display.</p>
+    <% } %>
+</section>
+
+<%- include('../partials/footer.ejs')%>  

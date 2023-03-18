@@ -1,0 +1,15 @@
+<%- include('../partials/header.ejs') %>
+<div class="header ">
+    <div class="pad">
+        <form action = '/users/login' method = 'POST' class="mt-20">
+            <h2><label for="email">Email Address</label></h2>
+            <input type="email" id="email" name="email" class="fixed-width" required>
+
+            <h2><label for="password">Password</label></h2>
+            <input type="password" id="password" name="password" class="fixed-width" required></br>
+
+            <button >Login</button>
+        </form>
+    </div>    
+</div>
+<%- include('../partials/footer.ejs') %>
